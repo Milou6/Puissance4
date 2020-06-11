@@ -9,10 +9,10 @@ public class ControleurGrille {
 	EcranGrille grid;
 	Chrono chrono;
 	
-	public ControleurGrille() {
+	public ControleurGrille(JLabel lbltimer) {
 		// On lie le controleur Ã  un objet Grille
 //		this.grid = new EcranGrille(this);
-//		this.chrono = new Chrono(Window.timer);
+		chrono = new Chrono(lbltimer);
 		
 		// On crée un JFrame qui contient tout l'affichage du jeu (Grille, Timer, Boutons)
 //		JFrame EcranJeu = new JFrame();	
@@ -133,6 +133,7 @@ public class ControleurGrille {
 			if (compteurSerie == 4) {
 				gagnant = pionActuel.intValue();
 				System.out.println("WIN ASC!!!!!!!!!!!!!!!!!!  " + gagnant);
+				chrono.stop();
 				return gagnant;
 			}			
 			// Le pion actuel devient le pion d'avant pour la prochaine itération

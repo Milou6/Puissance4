@@ -24,6 +24,7 @@ public class Chrono {
 				// Si le joueur a pas encore fait de coup aprà¨s 20s, il perd
 				if (seconds == 20) {
 					System.out.println("LOSEEE");
+					timer.stop();
 				}
 
 				// Toutes les secondes, on met à  jour l'affichage du JLabel
@@ -46,6 +47,14 @@ public class Chrono {
 		timer.restart();
 		timerText.repaint();
 		seconds = 1;
+	}
+	
+	public void stop() {
+		timer.stop();
+	}
+	
+	public void reprendre() {
+		timer.start();
 	}
 
 

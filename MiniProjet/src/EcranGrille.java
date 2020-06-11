@@ -15,8 +15,8 @@ public class EcranGrille extends JPanel {
 	private int[][] matricePions;
 	private int joueurActuel = 1;
 	
-	public EcranGrille() {
-		ControleurGrille ControleJeu = new ControleurGrille();
+	public EcranGrille(JLabel lbltimer) {
+		ControleurGrille ControleJeu = new ControleurGrille(lbltimer);
 		this.controleur = ControleJeu;
 		this.matricePions = new int[7][];
 		for (int i=0 ; i<matricePions.length; i++) {
@@ -31,13 +31,14 @@ public class EcranGrille extends JPanel {
 			public void mouseClicked(MouseEvent e) {
 				int[] carreAPeindre = controleur.getSquareToPaint(e.getX(), e.getY(), matricePions);
 				
-				// On ajoute le pion placÃ© Ã  la matrice
+				// On ajoute le pion placé à  la matrice
 				matricePions[carreAPeindre[0]][carreAPeindre[1]] = joueurActuel;
 				if (joueurActuel == 1) {joueurActuel = 2;}
 				else {joueurActuel = 1;}
 				
 				// On repeint la grille pour dessiner le pion rajoutÃ©
 				repaint();
+				//updateUI();
 				
 				int joueurGagnant = controleur.detecterGagnant(matricePions, carreAPeindre);
 				
@@ -57,7 +58,7 @@ public class EcranGrille extends JPanel {
 		}
 		
 		
-		// Ce bloc chèque avec matricePions quels cases sont Ã  colorer
+		// Ce bloc chèque avec matricePions quels cases sont à colorer
 		for (int col=0; col<matricePions.length; col++ ) {
 			for (int row=0; row<6; row++ ) {
 				if (matricePions[col][row] != 0) {
