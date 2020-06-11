@@ -74,7 +74,6 @@ public class Window extends JFrame implements ActionListener{
 		  add(timer, BorderLayout.PAGE_END);
 		  grid.setVisible(true);
 		  
-		  
 		  this.repaint();
 		  this.revalidate();//tell the layout manager to recalculate the layout
 	  }
