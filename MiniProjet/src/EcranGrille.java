@@ -6,22 +6,24 @@ import java.util.Arrays;
 import javax.swing.JPanel;
 import java.awt.Font;
 import java.awt.Color;
+import javax.swing.JLabel;
+import javax.swing.JButton;
+import net.miginfocom.swing.MigLayout;
 
-public class Grille extends JPanel {
+public class EcranGrille extends JPanel {
 	private ControleurGrille controleur;
 	private int[][] matricePions;
 	private int joueurActuel = 1;
 	
-	public Grille(ControleurGrille controleur) {
-		
-		this.controleur = controleur;
+	public EcranGrille() {
+		ControleurGrille ControleJeu = new ControleurGrille();
+		this.controleur = ControleJeu;
 		this.matricePions = new int[7][];
 		for (int i=0 ; i<matricePions.length; i++) {
 			matricePions[i] = new int[] {0,0,0,0,0,0};
 			System.out.println(Arrays.toString(matricePions[i]));
 		}
 		this.joueurActuel = 1;
-		
 		
 //		ControleurGrille align = new ControleurGrille(this);
 		
@@ -45,9 +47,8 @@ public class Grille extends JPanel {
 
 	public void paintComponent(Graphics g){
 		// Obtient les dimensions de la grille
-		int panelWidth = this.getWidth();
-		int panelHeight = this.getHeight();
-
+		int panelWidth = getParent().getWidth();
+		int panelHeight = getParent().getHeight();
 		// Peint le quadrillage du panel
 		for (int j=0; j<6; j++) {
 			for (int i=0; i<7; i++) {
@@ -56,7 +57,7 @@ public class Grille extends JPanel {
 		}
 		
 		
-		// Ce bloc chèque avec matricePions quels cases sont à colorer
+		// Ce bloc ch�que avec matricePions quels cases sont à colorer
 		for (int col=0; col<matricePions.length; col++ ) {
 			for (int row=0; row<6; row++ ) {
 				if (matricePions[col][row] != 0) {
@@ -70,19 +71,6 @@ public class Grille extends JPanel {
 					}
 				}
 			}
-		}
-		
-		
-		
-		
-		
-		
+		}		
 	}
-	
-	
-	
-	
-	
-	
-	
 }

@@ -7,13 +7,13 @@ import javax.swing.Timer;
 public class Chrono {
 	// L'objet Timer en soi
 	Timer timer;
-	// Le label qui affiche le temps du timer sur l' √©cran
+	// Le label qui affiche le temps du timer sur l' Ècran
 	JLabel timerText;
-	// La variable qui permet de mettre √† jour l'affichage
+	// La variable qui permet de mettre ‡† jour l'affichage
 	int seconds;
 
 	public Chrono(JLabel timerText) {
-		// delay d√©termine √† quelle fr√©quence (en ms) le Timer active l' ActionListener
+		// delay dÈtermine ‡†quelle frÈquence (en ms) le Timer active l' ActionListener
 		int delay = 1000;
 		this.seconds = 1;
 		this.timerText = timerText;
@@ -21,19 +21,19 @@ public class Chrono {
 		ActionListener taskPerformer = new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 
-				// Si le joueur a pas encore fait de coup apr√®s 20s, il perd
+				// Si le joueur a pas encore fait de coup apr‡®s 20s, il perd
 				if (seconds == 20) {
 					System.out.println("LOSEEE");
 				}
 
-				// Toutes les secondes, on met √† jour l'affichage du JLabel
+				// Toutes les secondes, on met ‡† jour l'affichage du JLabel
 				timerText.setText(seconds + ".00");
 				seconds += 1;
 				timerText.repaint();
 			}
 		};
 
-		// On cr√©e le Timer et on lui rajoute l'ActionListener
+		// On crÈe le Timer et on lui rajoute l'ActionListener
 		timer = new Timer(delay, taskPerformer);
 		timer.start();
 

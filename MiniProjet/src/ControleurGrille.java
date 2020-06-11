@@ -6,35 +6,35 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 public class ControleurGrille {
-	Grille grid;
+	EcranGrille grid;
 	Chrono chrono;
 	
 	public ControleurGrille() {
 		// On lie le controleur Ã  un objet Grille
-		this.grid = new Grille(this);
+//		this.grid = new EcranGrille(this);
+//		this.chrono = new Chrono(Window.timer);
 		
-		// On crÃ©e un JFrame qui contient tout l'affichage du jeu (Grille, Timer, Boutons)
-		JFrame EcranJeu = new JFrame();	
-		EcranJeu.setBounds(100, 100, 800, 610);
-		EcranJeu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		EcranJeu.getContentPane().setLayout(new BorderLayout());
-		EcranJeu.setVisible(true);
+		// On crée un JFrame qui contient tout l'affichage du jeu (Grille, Timer, Boutons)
+//		JFrame EcranJeu = new JFrame();	
+//		EcranJeu.setBounds(100, 100, 800, 610);
+//		EcranJeu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		EcranJeu.getContentPane().setLayout(new BorderLayout());
+//		EcranJeu.setVisible(true);
 		
-		// On crÃ©e un JLabel qui affiche le timer
-		JLabel timer = new JLabel("0.00");
-		timer.setFont(new Font("Arial", Font.BOLD, 20));
-		this.chrono = new Chrono(timer);
-		
-		// On rajoute les diffÃ©rents Ã©lÃ©ments au JFrame
-		EcranJeu.add(grid, BorderLayout.CENTER);
-		EcranJeu.add(timer, BorderLayout.PAGE_END);
-		grid.setVisible(true);
+		// On crée un JLabel qui affiche le timer
+//		JLabel timer = new JLabel("0.00");
+//		timer.setFont(new Font("Arial", Font.BOLD, 20));
+
+		// On rajoute les différents éléments au JFrame
+//		EcranJeu.add(grid, BorderLayout.CENTER);
+//		EcranJeu.add(timer, BorderLayout.PAGE_END);
+//		grid.setVisible(true);
 	}
 	
 
 	public int[] getSquareToPaint(int x, int y, int[][] matricePions) {
-		int panelWidth = grid.getWidth();
-		int panelHeight = grid.getHeight();
+		int panelWidth = 800;
+		int panelHeight = 494;
 		System.out.println(panelWidth);
 		System.out.println(panelHeight);	
 		
@@ -82,24 +82,24 @@ public class ControleurGrille {
 		}
 		System.out.println("DIAG  " + Arrays.toString(diagonaleTestee));
 		
-		// On vÃ©rifie si on a une sÃ©rie de 4x le mÃªme pion dans cette diagonale obtenue
+		// On vérifie si on a une série de 4x le même pion dans cette diagonale obtenue
 		int compteurSerie = 0;
 		int pionDAvant = diagonaleTestee[0];
 		
-		// On parcours les Ã©lÃ©ments de la diagonale, gardant en mÃ©moire toujours l'Ã©lÃ©ment actuel et celui d'avant
+		// On parcours les éléments de la diagonale, gardant en mémoire toujours l'élément actuel et celui d'avant
 		for (int j=0; j<diagonaleTestee.length; j++) {
 			Integer pionActuel = diagonaleTestee[j];
 			
-			// Si les 2 Ã©lÃ©ments sont des pions de mÃªme couleur, on augmente compteurSerie de 1
+			// Si les 2 éléments sont des pions de même couleur, on augmente compteurSerie de 1
 			if (pionActuel != 0 && pionActuel == pionDAvant) {compteurSerie +=1;}
 			else {compteurSerie = 1;}	
-			// Si compteurSerie est Ã  4, on a 4 pions de mÃªme couleur qui se suivent
+			// Si compteurSerie est Ã  4, on a 4 pions de même couleur qui se suivent
 			if (compteurSerie == 4) {
 				gagnant = pionActuel.intValue();
 				System.out.println("WIN!!!!!!!!!!!!!!!!!!  " + gagnant);
 				return gagnant;
 			}			
-			// Le pion actuel devient le pion d'avant pour la prochaine itÃ©ration
+			// Le pion actuel devient le pion d'avant pour la prochaine itération
 			pionDAvant = diagonaleTestee[j];
 		}
 		
@@ -118,24 +118,24 @@ public class ControleurGrille {
 		}
 		System.out.println("DIAG ASC  " + Arrays.toString(diagonaleTestee));
 		
-		// On vÃ©rifie si on a une sÃ©rie de 4x le mÃªme pion dans cette diagonale obtenue
+		// On vérifie si on a une série de 4x le même pion dans cette diagonale obtenue
 		compteurSerie = 0;
 		pionDAvant = diagonaleTestee[0];
 		
-		// On parcours les Ã©lÃ©ments de la diagonale, gardant en mÃ©moire toujours l'Ã©lÃ©ment actuel et celui d'avant
+		// On parcours les éléments de la diagonale, gardant en mémoire toujours l'élément actuel et celui d'avant
 		for (int j=0; j<diagonaleTestee.length; j++) {
 			Integer pionActuel = diagonaleTestee[j];
 			
-			// Si les 2 Ã©lÃ©ments sont des pions de mÃªme couleur, on augmente compteurSerie de 1
+			// Si les 2 éléments sont des pions de même couleur, on augmente compteurSerie de 1
 			if (pionActuel != 0 && pionActuel == pionDAvant) {compteurSerie +=1;}
 			else {compteurSerie = 1;}	
-			// Si compteurSerie est Ã  4, on a 4 pions de mÃªme couleur qui se suivent
+			// Si compteurSerie est Ã  4, on a 4 pions de même couleur qui se suivent
 			if (compteurSerie == 4) {
 				gagnant = pionActuel.intValue();
 				System.out.println("WIN ASC!!!!!!!!!!!!!!!!!!  " + gagnant);
 				return gagnant;
 			}			
-			// Le pion actuel devient le pion d'avant pour la prochaine itÃ©ration
+			// Le pion actuel devient le pion d'avant pour la prochaine itération
 			pionDAvant = diagonaleTestee[j];
 		}
 		
@@ -154,24 +154,24 @@ public class ControleurGrille {
 		}
 		System.out.println("HORIZONTALE  " + Arrays.toString(horizontaleTestee));
 		
-		// On vÃ©rifie si on a une sÃ©rie de 4x le mÃªme pion dans cette horizontale obtenue
+		// On vérifie si on a une série de 4x le même pion dans cette horizontale obtenue
 		compteurSerie = 0;
 		pionDAvant = horizontaleTestee[0];
 		
-		// On parcours les Ã©lÃ©ments de l'horizontale, gardant en mÃ©moire toujours l'Ã©lÃ©ment actuel et celui d'avant
+		// On parcours les éléments de l'horizontale, gardant en mémoire toujours l'élément actuel et celui d'avant
 		for (int j=0; j<horizontaleTestee.length; j++) {
 			Integer pionActuel = horizontaleTestee[j];
 			
-			// Si les 2 Ã©lÃ©ments sont des pions de mÃªme couleur, on augmente compteurSerie de 1
+			// Si les 2 éléments sont des pions de même couleur, on augmente compteurSerie de 1
 			if (pionActuel != 0 && pionActuel == pionDAvant) {compteurSerie +=1;}
 			else {compteurSerie = 1;}	
-			// Si compteurSerie est Ã  4, on a 4 pions de mÃªme couleur qui se suivent
+			// Si compteurSerie est Ã  4, on a 4 pions de même couleur qui se suivent
 			if (compteurSerie == 4) {
 				gagnant = pionActuel.intValue();
 				System.out.println("WIN HORIZONTAL!!!!!!!!!!!!!!!!!!  " + gagnant);
 				return gagnant;
 			}			
-			// Le pion actuel devient le pion d'avant pour la prochaine itÃ©ration
+			// Le pion actuel devient le pion d'avant pour la prochaine itération
 			pionDAvant = horizontaleTestee[j];
 		}
 		
@@ -190,24 +190,24 @@ public class ControleurGrille {
 		}
 		System.out.println("VERTICALE  " + Arrays.toString(verticaleTestee));
 		
-		// On vÃ©rifie si on a une sÃ©rie de 4x le mÃªme pion dans cette verticale obtenue
+		// On vérifie si on a une série de 4x le même pion dans cette verticale obtenue
 		compteurSerie = 0;
 		pionDAvant = verticaleTestee[0];
 		
-		// On parcours les Ã©lÃ©ments de la verticale, gardant en mÃ©moire toujours l'Ã©lÃ©ment actuel et celui d'avant
+		// On parcours les éléments de la verticale, gardant en mémoire toujours l'élément actuel et celui d'avant
 		for (int j=0; j<verticaleTestee.length; j++) {
 			Integer pionActuel = verticaleTestee[j];
 			
-			// Si les 2 Ã©lÃ©ments sont des pions de mÃªme couleur, on augmente compteurSerie de 1
+			// Si les 2 éléments sont des pions de même couleur, on augmente compteurSerie de 1
 			if (pionActuel != 0 && pionActuel == pionDAvant) {compteurSerie +=1;}
 			else {compteurSerie = 1;}	
-			// Si compteurSerie est Ã  4, on a 4 pions de mÃªme couleur qui se suivent
+			// Si compteurSerie est Ã  4, on a 4 pions de même couleur qui se suivent
 			if (compteurSerie == 4) {
 				gagnant = pionActuel.intValue();
 				System.out.println("WIN VERTICAL!!!!!!!!!!!!!!!!!!  " + gagnant);
 				return gagnant;
 			}			
-			// Le pion actuel devient le pion d'avant pour la prochaine itÃ©ration
+			// Le pion actuel devient le pion d'avant pour la prochaine itération
 			pionDAvant = verticaleTestee[j];
 		}
 		
