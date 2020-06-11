@@ -1,18 +1,42 @@
+import java.awt.BorderLayout;
+import java.awt.Font;
 import java.util.Arrays;
 
-public class Aligneur {
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+
+public class ControleurGrille {
 	Grille grid;
+	Chrono chrono;
 	
-	public Aligneur(Grille grid) {
-		this.grid = grid;
+	public ControleurGrille() {
+		// On lie le controleur à un objet Grille
+		this.grid = new Grille(this);
+		
+		// On crée un JFrame qui contient tout l'affichage du jeu (Grille, Timer, Boutons)
+		JFrame EcranJeu = new JFrame();	
+		EcranJeu.setBounds(100, 100, 800, 610);
+		EcranJeu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		EcranJeu.getContentPane().setLayout(new BorderLayout());
+		EcranJeu.setVisible(true);
+		
+		// On crée un JLabel qui affiche le timer
+		JLabel timer = new JLabel("0.00");
+		timer.setFont(new Font("Arial", Font.BOLD, 20));
+		this.chrono = new Chrono(timer);
+		
+		// On rajoute les différents éléments au JFrame
+		EcranJeu.add(grid, BorderLayout.CENTER);
+		EcranJeu.add(timer, BorderLayout.PAGE_END);
+		grid.setVisible(true);
 	}
+	
 
 	public int[] getSquareToPaint(int x, int y, int[][] matricePions) {
 		int panelWidth = grid.getWidth();
 		int panelHeight = grid.getHeight();
 		System.out.println(panelWidth);
-		System.out.println(panelHeight);
-		
+		System.out.println(panelHeight);	
 		
 		int LigneAPeindre = -1;
 		int[] result = {-1, -1};
@@ -32,14 +56,16 @@ public class Aligneur {
 		result[0] = colonneClickee;
 		result[1] = LigneAPeindre;
 		System.out.println(Arrays.toString(result));
-		return result;
-		
+		return result;	
 	}
 	
 	
 	public int detecterGagnant(int[][] matricePions, int[] dernierPion) {
 		int gagnant = 0;
 		int rayonRecherche = 3;
+		
+		// A chaque coup, on remet le chrono a 0
+		chrono.restart();
 		
 		
 		int[] diagonaleTestee = new int[rayonRecherche*2 + 1];

@@ -7,12 +7,14 @@ import javax.swing.JPanel;
 import java.awt.Font;
 import java.awt.Color;
 
-public class Grille extends JPanel { 
+public class Grille extends JPanel {
+	private ControleurGrille controleur;
 	private int[][] matricePions;
 	private int joueurActuel = 1;
 	
-	public Grille() {
+	public Grille(ControleurGrille controleur) {
 		
+		this.controleur = controleur;
 		this.matricePions = new int[7][];
 		for (int i=0 ; i<matricePions.length; i++) {
 			matricePions[i] = new int[] {0,0,0,0,0,0};
@@ -21,11 +23,11 @@ public class Grille extends JPanel {
 		this.joueurActuel = 1;
 		
 		
-		Aligneur align= new Aligneur(this);
+//		ControleurGrille align = new ControleurGrille(this);
 		
 		addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				int[] carreAPeindre = align.getSquareToPaint(e.getX(), e.getY(), matricePions);
+				int[] carreAPeindre = controleur.getSquareToPaint(e.getX(), e.getY(), matricePions);
 				
 				// On ajoute le pion placé à la matrice
 				matricePions[carreAPeindre[0]][carreAPeindre[1]] = joueurActuel;
@@ -35,21 +37,13 @@ public class Grille extends JPanel {
 				// On repeint la grille pour dessiner le pion rajouté
 				repaint();
 				
-				int joueurGagnant = align.detecterGagnant(matricePions, carreAPeindre);
+				int joueurGagnant = controleur.detecterGagnant(matricePions, carreAPeindre);
 				
 			}	
 		});
 	}
 
 	public void paintComponent(Graphics g){
-		//    g.fillOval(200, 0, 75, 75); //filled circle of radius 75 at coord (200;0)
-		//    g.drawRect(10, 10, 50, 60); //rect of size 50 X 60 at coord (10;10)
-		//    g.fillRect(65, 65, 30, 40); //filled rect...
-		//    Font font = new Font("Courier", Font.BOLD, 20);
-		//    g.setFont(font);
-		//    g.setColor(Color.red);
-		//    g.drawString("Hello, world...", 200, 200);
-
 		// Obtient les dimensions de la grille
 		int panelWidth = this.getWidth();
 		int panelHeight = this.getHeight();
