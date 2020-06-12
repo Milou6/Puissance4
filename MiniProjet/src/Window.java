@@ -16,11 +16,12 @@ public class Window extends JFrame implements ActionListener{
 	private JButton btnQuitter;
 	private JButton btnAide;
 	private JButton btnAbandon;
-	private JPanel pnlMenu;
+	public JPanel pnlMenu;
 	private JPanel pnlGrille;
 	private JLabel lblTimerRest;
 	private JLabel timer;
 	private EcranGrille grid;
+	
 	
 	public Window(){                
 	    this.setTitle("Mon Puissance 4");
@@ -80,13 +81,13 @@ public class Window extends JFrame implements ActionListener{
 	  	Object src = e.getSource();
 	  	System.out.println("Something Append");
 	  	if(src == btnDemarer ){
-		  	System.out.println("Démarage du jeu");
-		  	//création de la grille de jeu
+		  	System.out.println("Dï¿½marage du jeu");
+		  	//crï¿½ation de la grille de jeu
 		  
-		  	//création d'un timer et d'un Label pour le timer
+		  	//crï¿½ation d'un timer et d'un Label pour le timer
 		  	timer = new JLabel("0.00");
 		  	timer.setFont(new Font("Stencil", Font.BOLD, 16));  	
-		  	grid = new EcranGrille(timer);	
+		  	grid = new EcranGrille(timer, this);	
 		  	
 		  	pnlGrille = new JPanel();
 			this.setBounds(100, 100, 800, 670);
@@ -122,7 +123,7 @@ public class Window extends JFrame implements ActionListener{
 		    gbc_lblTimerRest.gridy = 1;
 		    pnlGrille.add(lblTimerRest, gbc_lblTimerRest);
 			
-			//création d'un timer et d'un Label pour le timer	
+			//crï¿½ation d'un timer et d'un Label pour le timer	
 		  	GridBagConstraints gbc_timer = new GridBagConstraints();
 		  	gbc_timer.anchor = GridBagConstraints.WEST;
 		  	gbc_timer.fill = GridBagConstraints.VERTICAL;
@@ -159,10 +160,17 @@ public class Window extends JFrame implements ActionListener{
 	  	}
 	  	else if(src == btnAide) {
 		  	//stopper chrono
+	  		if (this.grid.controleur.chrono.paused == false) {
+	  			this.grid.controleur.chrono.stop();
+	  		}
+	  		else {
+	  			this.grid.controleur.chrono.reprendre();
+	  		}
+	  		
 	  
 	  	}
 	  	else if(src == btnAbandon) {
-	  		System.out.println("Partie Abondonnée");
+	  		System.out.println("Partie Abondonnï¿½e");
 	  		this.setContentPane(pnlMenu);
 	  		this.repaint();
 	  		this.revalidate();//tell the layout manager to recalculate the layout

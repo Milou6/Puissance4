@@ -1,40 +1,60 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
 public class Chrono {
 	// L'objet Timer en soi
 	Timer timer;
-	// Le label qui affiche le temps du timer sur l' écran
+	// Le label qui affiche le temps du timer sur l' ï¿½cran
 	JLabel timerText;
-	// La variable qui permet de mettre à  jour l'affichage
+	// La variable qui permet de mettre ï¿½ jour l'affichage
 	int seconds;
+	int joueurActuel;
+	boolean paused;
 
-	public Chrono(JLabel timerText) {
-		// delay détermine à quelle fréquence (en ms) le Timer active l' ActionListener
+	public Chrono(JLabel timerText, int joueurActuel) {
+		// delay dï¿½termine ï¿½quelle frï¿½quence (en ms) le Timer active l' ActionListener
 		int delay = 1000;
 		this.seconds = 1;
 		this.timerText = timerText;
+		this.joueurActuel = joueurActuel;
+		this.paused = false;
 
 		ActionListener taskPerformer = new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 
-				// Si le joueur a pas encore fait de coup aprà¨s 20s, il perd
+				// Si le joueur a pas encore fait de coup aprï¿½s 20s, il perd
 				if (seconds == 20) {
-					System.out.println("LOSEEE");
 					timer.stop();
+					String gagnant = "";
+					if (getJoueurActuel() == 1) {gagnant = "JAUNE";}
+					else {gagnant = "BLEU";}
+					final JComponent[] inputs = new JComponent[] {
+						new JLabel("Temps Ã©coulÃ©!"),
+						new JLabel("Joueur " + gagnant + " gagne.")
+					};
+					int result = JOptionPane.showConfirmDialog(null, inputs, "FIN DE PARTIE", JOptionPane.PLAIN_MESSAGE);
+					if (result == JOptionPane.OK_OPTION) {
+						System.out.println("END");
+						System.exit(0);
+					}
+					else {
+						System.out.println("END");
+					}
 				}
 
-				// Toutes les secondes, on met à  jour l'affichage du JLabel
+				// Toutes les secondes, on met ï¿½ jour l'affichage du JLabel
 				timerText.setText(seconds + ".00");
 				seconds += 1;
 				timerText.repaint();
 			}
 		};
 
-		// On crée le Timer et on lui rajoute l'ActionListener
+		// On crï¿½e le Timer et on lui rajoute l'ActionListener
 		timer = new Timer(delay, taskPerformer);
 		timer.start();
 
@@ -47,16 +67,25 @@ public class Chrono {
 		timer.restart();
 		timerText.repaint();
 		seconds = 1;
+		
+		if (joueurActuel == 1) {joueurActuel = 2;}
+		else {joueurActuel = 1;}
+		System.out.println("joueurActuel " + joueurActuel);
 	}
 	
 	public void stop() {
 		timer.stop();
+		paused = true;
 	}
 	
 	public void reprendre() {
 		timer.start();
+		paused = false;
 	}
 
+	public int getJoueurActuel() {
+		return this.joueurActuel;
+	}
 
 
 

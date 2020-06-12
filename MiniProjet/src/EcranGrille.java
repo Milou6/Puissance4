@@ -7,16 +7,20 @@ import javax.swing.JPanel;
 import java.awt.Font;
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
+import javax.swing.JComponent;
+
 import net.miginfocom.swing.MigLayout;
 
 public class EcranGrille extends JPanel {
-	private ControleurGrille controleur;
+	public ControleurGrille controleur;
 	private int[][] matricePions;
 	private int joueurActuel = 1;
+	private Window parent;
 	
-	public EcranGrille(JLabel lbltimer) {
-		ControleurGrille ControleJeu = new ControleurGrille(lbltimer);
+	public EcranGrille(JLabel lbltimer, Window parent) {
+		ControleurGrille ControleJeu = new ControleurGrille(lbltimer, joueurActuel);
 		this.controleur = ControleJeu;
 		this.matricePions = new int[7][];
 		for (int i=0 ; i<matricePions.length; i++) {
@@ -24,6 +28,7 @@ public class EcranGrille extends JPanel {
 			System.out.println(Arrays.toString(matricePions[i]));
 		}
 		this.joueurActuel = 1;
+		this.parent = parent;
 		
 //		ControleurGrille align = new ControleurGrille(this);
 		
@@ -31,7 +36,7 @@ public class EcranGrille extends JPanel {
 			public void mouseClicked(MouseEvent e) {
 				int[] carreAPeindre = controleur.getSquareToPaint(e.getX(), e.getY(), matricePions);
 				
-				// On ajoute le pion placé à  la matrice
+				// On ajoute le pion placï¿½ ï¿½ la matrice
 				matricePions[carreAPeindre[0]][carreAPeindre[1]] = joueurActuel;
 				if (joueurActuel == 1) {joueurActuel = 2;}
 				else {joueurActuel = 1;}
@@ -41,6 +46,28 @@ public class EcranGrille extends JPanel {
 				//updateUI();
 				
 				int joueurGagnant = controleur.detecterGagnant(matricePions, carreAPeindre);
+				
+				// Dialog Panel si un des joueurs a gagnÃ©
+				if (joueurGagnant != 0) {
+					if (joueurGagnant == 1) {
+						final JComponent[] inputs = new JComponent[] {
+							new JLabel("Joueur BLEU gagne!"),
+						};
+						int result = JOptionPane.showConfirmDialog(null, inputs, "FIN DE PARTIE", JOptionPane.PLAIN_MESSAGE);
+						parent.setContentPane(parent.pnlMenu);
+						parent.repaint();
+						parent.revalidate();
+					}
+					else {
+						final JComponent[] inputs = new JComponent[] {
+								new JLabel("Joueur JAUNE gagne!"),
+							};
+							int result = JOptionPane.showConfirmDialog(null, inputs, "FIN DE PARTIE", JOptionPane.PLAIN_MESSAGE);
+							parent.setContentPane(parent.pnlMenu);
+							parent.repaint();
+							parent.revalidate();
+					}
+				}
 				
 			}	
 		});
@@ -58,7 +85,7 @@ public class EcranGrille extends JPanel {
 		}
 		
 		
-		// Ce bloc chèque avec matricePions quels cases sont à colorer
+		// Ce bloc chï¿½que avec matricePions quels cases sont ï¿½ colorer
 		for (int col=0; col<matricePions.length; col++ ) {
 			for (int row=0; row<6; row++ ) {
 				if (matricePions[col][row] != 0) {
